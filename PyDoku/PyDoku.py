@@ -2,3 +2,41 @@
 #Author: Hans Kristian
 #GitHub: hanskhe
 
+###Imports
+from random import randint
+
+###Globals
+debug = True
+
+
+def getBoard(filename, boardNumber):
+	#Returns a board from the file. If no boardnumber is given, a random board is chosen
+	f = open(filename, "r")
+	lines = f.readlines()
+	f.close()
+	if (boardNumber != None):
+		return lines[boardNumber]
+	else:
+		return lines[randint(0,len(lines))]
+
+def parseBoard(raw_board, x, y):
+	#Takes a board and parses it so the rest of the program can use it
+	#x and y represents the size of the board in x and y direction. Standard sudoku is 9x9
+	#Modify this metod to fit the input you are using
+	pos = 0
+	board = []
+	for i in range(0,y):
+		board.append([])
+		for j in range(0,x):
+			board[i].append(raw_board[pos])
+			pos +=1
+	if (debug):
+		for i in range(0,len(board)):
+			print(board[i])
+	return board
+
+
+
+
+testBoard = getBoard("Boards.txt", 0)
+testParse = parseBoard(testBoard, 9,9)
