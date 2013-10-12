@@ -47,7 +47,21 @@ def boardPrinter(board):
 		print("|", end="")
 	print("\n-------------")
 
+def generatePossibilitiesList(board):
+	#Makes a list of all possibilities for a cell. If a cell is not empty, there are no posibilities.
+	#This list will be the basis for the solving of the Sudoku.
+	possible = []
+	for i in range(0,len(board[0])):
+		possible.append([])
+		for j in range(0,len(board[i])):
+			if (board[i][j] == "."):
+				print(i,j)
+				possible[i].append([1,2,3,4,5,6,7,8,9])
+			else:
+				possible[i].append([])
+	return possible
 
 testBoard = getBoard("Boards.txt", 0)
 testParse = parseBoard(testBoard, 9,9)
 boardPrinter(testParse)
+print(generatePossibilitiesList(testParse))
