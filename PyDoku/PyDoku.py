@@ -35,8 +35,19 @@ def parseBoard(raw_board, x, y):
 			print(board[i])
 	return board
 
-
+def boardPrinter(board):
+	#Prints the board in a friendly way
+	print("-------------", end="")
+	for i in range(0,len(board[0])):
+		print("")
+		for j in range(0,len(board[i])):
+			if (j%3 == 0):
+				print("|", end="")
+			print(" " if str(board[i][j])=="." else str(board[i][j]), end="")
+		print("|", end="")
+	print("\n-------------")
 
 
 testBoard = getBoard("Boards.txt", 0)
 testParse = parseBoard(testBoard, 9,9)
+boardPrinter(testParse)
