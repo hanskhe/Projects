@@ -56,12 +56,33 @@ def generatePossibilitiesList(board):
 		for j in range(0,len(board[i])):
 			if (board[i][j] == "."):
 				print(i,j)
-				possible[i].append([1,2,3,4,5,6,7,8,9])
+				possible[i].append(["1","2","3","4","5","6","7","8","9"])
 			else:
 				possible[i].append([])
 	return possible
 
+def checkRow(board, possible, row, rNumber):
+	#Checks a row or column based on the bool row. Edits the possible list to reflect changes.
+	newPossible = possible[:]
+	if (row == True):
+		numbersInRow = []
+		for i in range(0,len(board[rNumber])):
+			if (board[rNumber][i] != "."):
+				numbersInRow.append(board[rNumber][i])
+		if debug:
+			print(numbersInRow)
+		#Edit the newPossible list to reflect what we now know about the row
+		#All numbers that are present in the row may not be placed in the row again
+		for i in range(0,len(newPossible[rNumber])):
+			for num in numbersInRow:
+				if (num in newPossible[rNumber][i]):
+					newPossible[rNumber][i].remove(num)
+					print("Removed: "+num)
+		return newPossible
+
+
 testBoard = getBoard("Boards.txt", 0)
 testParse = parseBoard(testBoard, 9,9)
 boardPrinter(testParse)
-print(generatePossibilitiesList(testParse))
+possible = generatePossibilitiesList(testParse)
+checkRow(testParse,possible,True,0)
