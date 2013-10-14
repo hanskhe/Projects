@@ -77,7 +77,23 @@ def checkRow(board, possible, row, rNumber):
 			for num in numbersInRow:
 				if (num in newPossible[rNumber][i]):
 					newPossible[rNumber][i].remove(num)
-					print("Removed: "+num)
+					if debug: print("Removed: "+num)
+		return newPossible
+	elif (row == False):
+		#We are now checking a column
+		numbersInColumn = []
+		for i in range(0,len(board)):
+			if (board[i][rNumber] != "."):
+				numbersInColumn.append(board[i][rNumber])
+		if debug:
+			print(numbersInColumn)
+		#Edit the newPossible list to reflect what we now know about the column
+		#All numbers that are present in the column may not be placed in the column again
+		for i in range(0,len(newPossible)):
+			for num in numbersInColumn:
+				if (num in newPossible[i][rNumber]):
+					newPossible[i][rNumber].remove(num)
+					if debug: print("Removed: " + num)
 		return newPossible
 
 
@@ -85,4 +101,5 @@ testBoard = getBoard("Boards.txt", 0)
 testParse = parseBoard(testBoard, 9,9)
 boardPrinter(testParse)
 possible = generatePossibilitiesList(testParse)
-checkRow(testParse,possible,True,0)
+print(checkRow(testParse,possible,True,0))
+print(checkRow(testParse,possible,False,3))
